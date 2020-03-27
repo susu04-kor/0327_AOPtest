@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="mDao" class="com.bit.dao.MemberDao"/>
+	<bean id="gDao" class="com.bit.dao.GoodsDao"/>
+	<bean id="bitAdvice" class="com.bit.exam01.ProfilingAdvice"/>
+	
+	<aop:config>
+		<aop:aspect id="" ref="bitAdvice">
+			<aop:pointcut expression="execution(public * com.bit.dao..*(..))" 
+			id="daoMethod"/><!-- 접근명시자:public/ * - 반환하는 메소드가 어떤 값이라도 가능 / 패키지 이름 / (..)-매개변수가 있거나 없거나 한 개이거나 어떤 것이라도 -->
+			<!-- <aop:around method="pro" pointcut-ref="daoMethod"/> --> 
+			<!-- method는 ""에 커서 대고 컨트롤스페이스 하면 쓸 수 있는 메소드가 다 나옴 그 중에 필요한 것을 고르면 됨 -->
+			<!-- 모든 메소드들이 작동하기 전에 공통관심사항으로 설정한 pro메소드가 먼저 동작하게 됨 -->
+			<!-- <aop:before method="before" pointcut-ref="daoMethod"/> -->
+			<!-- <aop:after method="after" pointcut-ref="daoMethod"/>-->
+			<!-- <aop:after-returning method="afterReturning" pointcut-ref="daoMethod"/> -->
+			<aop:after-throwing method="afterReturning" pointcut-ref="daoMethod"/>
+		</aop:aspect>
+	</aop:config>
+	
+</beans>
